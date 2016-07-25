@@ -45,7 +45,10 @@ public class CleverTapSegmentApplication extends Application implements SyncList
         sCleverTapSegmentEnabled = true;
         clevertap = instance;
         clevertap.setSyncListener(this);
-        Log.d("CLEVERTAP_ID", clevertap.getCleverTapID());
+        //on initial app install, a call to getCleverTapID will return NULL until the profile is fully initialized
+        // rely on the profileDidInitialize callback in that case
+        String clevertapID = clevertap.getCleverTapID();
+        Log.d("CLEVERTAP_ID", clevertapID != null ? clevertapID : "NULL");
     }
 
     // SyncListener
