@@ -7,6 +7,9 @@
 
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK" />
+
     <permission
         android:name="com.clevertap.segmenttest.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
@@ -42,15 +45,30 @@
             android:value="id:320477020244" />
 
         <receiver
-            android:name="com.clevertap.android.sdk.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="com.clevertap.starter" />
+                <category android:name="com.clevertap.segmenttest" />
             </intent-filter>
         </receiver>
+
+        <service
+            android:name="com.clevertap.android.sdk.GcmMessageListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.clevertap.android.sdk.GcmTokenListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.google.android.gms.version"
