@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 traits.put("float", 1.5);
                 traits.put("long", 12345L);
                 traits.put("string", "hello");
+                traits.put("stringInt", "1");
                 Analytics.with(getApplicationContext()).identify(newUser, traits, null);
             }
         });
