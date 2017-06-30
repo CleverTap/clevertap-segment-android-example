@@ -13,7 +13,7 @@ import org.json.JSONObject;
 public class CleverTapSegmentApplication extends Application implements SyncListener {
 
     private static final String TAG = String.format("%s.%s", "CLEVERTAP", CleverTapSegmentApplication.class.getName());
-    private static final String WRITE_KEY = "YOUR_SEGMENT_WRITE_KEY";
+    private static final String WRITE_KEY = "YOUR SEGMENT WRITE KEY";
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
 
@@ -25,7 +25,7 @@ public class CleverTapSegmentApplication extends Application implements SyncList
         CleverTapAPI.setDebugLevel(1);
 
         Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
-                .logLevel(Analytics.LogLevel.DEBUG)
+                .logLevel(Analytics.LogLevel.VERBOSE)
                 .use(CleverTapIntegration.FACTORY)
                 .build();
 

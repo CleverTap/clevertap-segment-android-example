@@ -59,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Toast.makeText(getApplicationContext(), "track() called for custom event 'testEvent'.", Toast.LENGTH_LONG).show();
-                Analytics.with(getApplicationContext()).track("testEvent", new Properties().putValue("value", "testValue"));
+                Analytics.with(getApplicationContext()).track("testEvent",
+                        new Properties().putValue("value", "testValue")
+                        .putValue("testDate", new Date(System.currentTimeMillis()))
+                );
             }
         });
 
