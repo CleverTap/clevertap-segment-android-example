@@ -17,7 +17,9 @@ import android.widget.Toast;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
+import com.segment.analytics.Properties.Product;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
@@ -39,17 +41,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View arg0) {
                 String newUser = Integer.toString(Math.abs(mRandom.nextInt()));
                 Toast.makeText(getApplicationContext(), "identify() called with user id: " + newUser + ".", Toast.LENGTH_LONG).show();
+                ArrayList<String> testArr = new ArrayList<String>();
+                testArr.add("one");
+                testArr.add("two");
+                testArr.add("three");
                 Traits traits = new Traits();
                 traits.putEmail("foo@foo.com");
                 traits.putName("FooName");
                 traits.putGender("male");
-                traits.putPhone("5555555555");
+                traits.putPhone("+14155551234");
                 traits.put("boolean", true);
                 traits.put("integer", 50);
                 traits.put("float", 1.5);
                 traits.put("long", 12345L);
                 traits.put("string", "hello");
                 traits.put("stringInt", "1");
+                traits.put("testStringArr", testArr);
                 Analytics.with(getApplicationContext()).identify(newUser, traits, null);
             }
         });
@@ -59,10 +66,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View arg0) {
                 Toast.makeText(getApplicationContext(), "track() called for custom event 'testEvent'.", Toast.LENGTH_LONG).show();
+
                 Analytics.with(getApplicationContext()).track("testEvent",
                         new Properties().putValue("value", "testValue")
                         .putValue("testDate", new Date(System.currentTimeMillis()))
                 );
+
+                final String orderId = "123456";
+                final int revenue = 100;
+                Properties properties = new Properties();
+                properties.putValue("orderId", orderId).putValue("revenue", revenue);
+
+                Product product1 = new Product("id1", "sku1", 100);
+                Product product2 = new Product("id2", "sku2", 200);
+                properties.putProducts(product1, product2);
+
+                Analytics.with(getApplicationContext()).track("Order Completed", properties);
             }
         });
 
