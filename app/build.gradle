@@ -22,7 +22,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.clevertap.android:clevertap-segment-android:1.0.12'
+    //compile 'com.clevertap.android:clevertap-segment-android:1.0.12'
+    compile 'com.clevertap.android:clevertap-segment-android:1.0.13'
     compile 'com.segment.analytics.android:analytics:4.+'
     compile 'com.google.android.gms:play-services-gcm:11.0.0'
     compile 'com.android.support:appcompat-v7:26.0.1'
