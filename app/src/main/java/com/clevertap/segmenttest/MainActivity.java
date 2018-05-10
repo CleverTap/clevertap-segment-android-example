@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
+import static com.clevertap.segmenttest.CleverTapSegmentApplication.clevertap;
+
 public class MainActivity extends AppCompatActivity {
 
     Random mRandom = new Random();
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        clevertap.enableDeviceNetworkInfoReporting(true);
+        clevertap.setOptOut(false);
 
         Button identifyButton = (Button) findViewById(R.id.identifyButton);
 
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 traits.put("stringInt", "1");
                 traits.put("testStringArr", testArr);
                 Analytics.with(getApplicationContext()).identify(newUser, traits, null);
+                Analytics.with(getApplicationContext()).screen("Home Screen");
             }
         });
 

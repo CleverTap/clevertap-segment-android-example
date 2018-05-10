@@ -17,7 +17,7 @@ public class CleverTapSegmentApplication extends Application implements SyncList
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
 
-    private CleverTapAPI clevertap;
+    public static CleverTapAPI clevertap;
 
     @Override public void onCreate() {
         super.onCreate();
