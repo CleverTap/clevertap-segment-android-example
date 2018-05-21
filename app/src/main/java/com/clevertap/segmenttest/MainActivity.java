@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        clevertap.enableDeviceNetworkInfoReporting(true);
-        clevertap.setOptOut(false);
 
         Button identifyButton = (Button) findViewById(R.id.identifyButton);
 
