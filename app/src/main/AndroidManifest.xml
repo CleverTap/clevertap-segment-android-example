@@ -10,12 +10,6 @@
     <uses-permission
         android:name="android.permission.WAKE_LOCK" />
 
-    <permission
-        android:name="com.clevertap.segmenttest.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.clevertap.segmenttest.permission.C2D_MESSAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -40,40 +34,31 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="GCM_SENDER_ID"
-            android:value="id:320477020244" />
-
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+        <service
+            android:name="com.clevertap.android.sdk.FcmTokenListenerService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-                <category android:name="com.clevertap.segmenttest" />
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
-        </receiver>
+        </service>
 
         <service
-            android:name="com.clevertap.android.sdk.GcmMessageListenerService"
-            android:exported="false" >
+            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-
-        <service android:name="com.clevertap.android.sdk.GcmTokenListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
 
         <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:name="CLEVERTAP_NOTIFICATION_ICON"
+            android:value="ic_stat_red_star"/>
 
+        <service
+            android:name="com.clevertap.android.sdk.CTNotificationIntentService"
+            >
+            <intent-filter>
+                <action android:name="com.clevertap.PUSH_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
