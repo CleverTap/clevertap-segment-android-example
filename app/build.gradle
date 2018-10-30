@@ -23,12 +23,10 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.clevertap.android:clevertap-segment-android:1.0.17'
+    compile 'com.clevertap.android:clevertap-segment-android:1.0.18'
     compile 'com.segment.analytics.android:analytics:4.3.1'
-    compile 'com.google.firebase:firebase-messaging:15.0.2'
+    compile 'com.google.firebase:firebase-messaging:17.3.4'
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:support-v4:26.1.0'
-    //compile (name: 'clevertap-segment-android-release', ext: 'aar') //CleverTap Android SDK, make sure the AAR file is in the libs folder
-    //compile 'com.clevertap.android:clevertap-android-sdk:3.2.0'
 }
