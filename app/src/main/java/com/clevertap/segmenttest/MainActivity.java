@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clevertap.android.sdk.CTInboxListener;
+import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
@@ -25,9 +27,10 @@ import java.util.Random;
 
 import static com.clevertap.segmenttest.CleverTapSegmentApplication.clevertap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CTInboxListener {
 
     Random mRandom = new Random();
+    Button inboxButton, initButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        initButton = (Button) findViewById(R.id.inboxButton);
+        initButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(CleverTapSegmentApplication.clevertap != null) {
+                    CleverTapSegmentApplication.clevertap.setCTNotificationInboxListener(MainActivity.this);
+                    CleverTapSegmentApplication.clevertap.initializeInbox();
+                }
+            }
+        });
+        inboxButton = findViewById(R.id.inboxButton2);
 
         Button identifyButton = (Button) findViewById(R.id.identifyButton);
 
@@ -135,6 +150,37 @@ public class MainActivity extends AppCompatActivity {
         //To get scheme.
         String scheme = data.getScheme();
         Log.d("DEEP_LINK", scheme);
+
+    }
+
+    @Override
+    public void inboxDidInitialize() {
+        inboxButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> tabs = new ArrayList<>();
+                tabs.add("Promotions");
+                tabs.add("Offers");
+                tabs.add("Others");//Anything after the first 2 will be ignored
+                CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
+                styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
+                styleConfig.setTabBackgroundColor("#FF0000");
+                styleConfig.setSelectedTabIndicatorColor("#0000FF");
+                styleConfig.setSelectedTabColor("#0000FF");
+                styleConfig.setUnselectedTabColor("#FFFFFF");
+                styleConfig.setBackButtonColor("#FF0000");
+                styleConfig.setNavBarTitleColor("#FF0000");
+                styleConfig.setNavBarTitle("MY INBOX");
+                styleConfig.setNavBarColor("#FFFFFF");
+                styleConfig.setInboxBackgroundColor("#ADD8E6");
+                CleverTapSegmentApplication.clevertap.showAppInbox(styleConfig); //With Tabs
+                //ct.showAppInbox();//Opens Activity with default style configs
+            }
+        });
+    }
+
+    @Override
+    public void inboxMessagesDidUpdate() {
 
     }
 }

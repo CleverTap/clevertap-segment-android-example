@@ -1,18 +1,22 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
     defaultConfig {
         applicationId "com.clevertap.segmenttest"
         minSdkVersion 14
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.1"
         multiDexEnabled true
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -23,10 +27,16 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'junit:junit:4.12'
-    implementation 'com.clevertap.android:clevertap-segment-android:1.0.19'
+    //implementation 'com.clevertap.android:clevertap-segment-android:1.0.19'
     implementation 'com.segment.analytics.android:analytics:4.3.1'
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
-    implementation 'com.android.support:appcompat-v7:26.1.0'
-    implementation 'com.android.support:design:26.1.0'
-    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'//Mandatory if using App Inbox
+    implementation 'com.android.support:design:28.0.0'//Mandatory if using App Inbox
+    implementation 'com.android.support:support-v4:28.0.0'
+    implementation(name: 'clevertap-segment-android-release', ext: 'aar')//AAR file to test
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.4'//Mandatory if using App Inbox
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.8.4'//Mandatory if using App Inbox
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.8.4'//Mandatory if using App Inbox
+    implementation 'com.github.bumptech.glide:glide:4.8.0'//Mandatory if using App Inbox
+    implementation 'com.clevertap.android:clevertap-android-sdk:3.4.1'//The app won't have to put this once the segment sdk is put in the gradle file
 }
