@@ -13,7 +13,8 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath ("com.android.tools:r8:1.3.52" ) { transitive false }
+        classpath 'com.android.tools.build:gradle:3.3.0'
         classpath 'com.google.gms:google-services:4.1.0'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -24,9 +25,9 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-        mavenCentral()
+        //mavenCentral()
         maven {
-            url "https://maven.google.com"
+            url "http://storage.googleapis.com/r8-releases/raw" // ADD THIS.
         }
         maven {
             url 'https://maven.google.com/'

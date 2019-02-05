@@ -1,6 +1,7 @@
 package com.clevertap.segmenttest;
 
 import android.app.Application;
+import android.os.Handler;
 import android.util.Log;
 
 import com.clevertap.android.sdk.CleverTapAPI;
@@ -17,7 +18,9 @@ public class CleverTapSegmentApplication extends Application implements SyncList
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
 
-    public static CleverTapAPI clevertap;
+    private CleverTapAPI clevertap;
+
+    private static Handler handler = null;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -45,18 +48,31 @@ public class CleverTapSegmentApplication extends Application implements SyncList
         sCleverTapSegmentEnabled = true;
         clevertap = instance;
         clevertap.setSyncListener(this);
-        //on initial app install, a call to getCleverTapID will return NULL until the profile is fully initialized
-        // rely on the profileDidInitialize callback in that case
-        String clevertapID = clevertap.getCleverTapID();
-        Log.d("CLEVERTAP_ID", clevertapID != null ? clevertapID : "NULL");
+        getCleverTapAttributionIdentifier();
+    }
+
+    private void getCleverTapAttributionIdentifier() {
+        //on initial app install, a call to getCleverTapAttributionIdentifier will return NULL until the sdk is fully initialized
+        String cleverTapID = clevertap.getCleverTapAttributionIdentifier();
+        if (cleverTapID == null) {
+            if (handler == null) {
+                handler = new Handler();
+            }
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    getCleverTapAttributionIdentifier();
+                }
+            }, 500);
+        } else {
+            Log.d("CT_ATTRIBUTION_ID", cleverTapID);
+        }
     }
 
     // SyncListener
     public void profileDidInitialize(String CleverTapID){
-        Log.d("CLEVERTAP_INITIALIZED", CleverTapID);
-        Log.d("CLEVERTAP_ID", clevertap.getCleverTapID());
+        Log.d("CT_PROFILE_INITIALIZED", CleverTapID);
     }
-
     public void profileDataUpdated(JSONObject updates) {
         Log.d("CT_PROFILE_UPDATES", updates.toString());
     }

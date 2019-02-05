@@ -3,6 +3,7 @@ package com.clevertap.segmenttest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -11,11 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
+import com.clevertap.android.sdk.CleverTapAPI;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
@@ -23,42 +24,49 @@ import com.segment.analytics.Properties.Product;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
-
-import static com.clevertap.segmenttest.CleverTapSegmentApplication.clevertap;
 
 public class MainActivity extends AppCompatActivity implements CTInboxListener {
 
     Random mRandom = new Random();
-    Button inboxButton, initButton;
+    private static final String TAG = String.format("%s.%s", "CLEVERTAP", MainActivity.class.getName());
+    private static final String CLEVERTAP_KEY = "CleverTap";
+    private CleverTapAPI clevertap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        initButton = (Button) findViewById(R.id.inboxButton);
-        initButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(CleverTapSegmentApplication.clevertap != null) {
-                    CleverTapSegmentApplication.clevertap.setCTNotificationInboxListener(MainActivity.this);
-                    CleverTapSegmentApplication.clevertap.initializeInbox();
-                }
-            }
-        });
-        inboxButton = findViewById(R.id.inboxButton2);
+        Button inboxButton = findViewById(R.id.inboxButton);
+        if (inboxButton != null) {
+            inboxButton.setVisibility(View.GONE);
+        }
 
-        Button identifyButton = (Button) findViewById(R.id.identifyButton);
+        if (CleverTapAPI.getDefaultInstance(getApplicationContext()) != null) {
+            CleverTapIntegrationReady();
+        } else {
+            Analytics analytics = Analytics.with(getApplicationContext());
+            analytics.onIntegrationReady(CLEVERTAP_KEY, new Analytics.Callback<CleverTapAPI>() {
+                @Override
+                public void onReady(CleverTapAPI instance) {
+                    Log.i(TAG, "analytics.onIntegrationReady() called");
+                    CleverTapIntegrationReady();
+                }
+            });
+        }
+
+        Button identifyButton = findViewById(R.id.identifyButton);
 
         identifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 String newUser = Integer.toString(Math.abs(mRandom.nextInt()));
                 Toast.makeText(getApplicationContext(), "identify() called with user id: " + newUser + ".", Toast.LENGTH_LONG).show();
-                ArrayList<String> testArr = new ArrayList<String>();
+                ArrayList<String> testArr = new ArrayList<>();
                 testArr.add("one");
                 testArr.add("two");
                 testArr.add("three");
@@ -79,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
             }
         });
 
-        Button trackButton = (Button) findViewById(R.id.trackButton);
+        Button trackButton = findViewById(R.id.trackButton);
         trackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -105,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
 
         handleIntent(getIntent());
     }
-
 
     @Override
     public void onNewIntent(Intent intent) {
@@ -136,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
     }
 
     private void handleIntent(Intent intent) {
-        if (intent.getAction().equals(Intent.ACTION_VIEW)) {
+        if (Intent.ACTION_VIEW.equals(intent.getAction())) {
             Uri data = intent.getData();
             if (data != null) {
                 Log.d("INTENT_URI", data.toString());
@@ -153,15 +160,42 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
 
     }
 
+    private void CleverTapIntegrationReady() {
+        if (clevertap == null) {
+            clevertap = CleverTapAPI.getDefaultInstance(getApplicationContext());
+        }
+        if (clevertap != null) {
+            clevertap.setCTNotificationInboxListener(MainActivity.this);
+            if (clevertap.getInboxMessageCount() < 0) {
+                clevertap.initializeInbox();
+            } else {
+                inboxDidInitialize();
+            }
+        }
+    }
+
+    private long mLastInboxClickTime = 0;
     @Override
     public void inboxDidInitialize() {
+        Button inboxButton = findViewById(R.id.inboxButton);
+        if (inboxButton == null) {
+            return;
+        }
         inboxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (clevertap == null) {
+                    return;
+                }
+                if (SystemClock.elapsedRealtime() - mLastInboxClickTime < 1000){
+                    return;
+                }
+                mLastInboxClickTime = SystemClock.elapsedRealtime();
+
                 ArrayList<String> tabs = new ArrayList<>();
                 tabs.add("Promotions");
                 tabs.add("Offers");
-                tabs.add("Others");//Anything after the first 2 will be ignored
+                tabs.add("Will Not Show");//Anything after the first 2 will be ignored
                 CTInboxStyleConfig styleConfig = new CTInboxStyleConfig();
                 styleConfig.setTabs(tabs);//Do not use this if you don't want to use tabs
                 styleConfig.setTabBackgroundColor("#FF0000");
@@ -173,14 +207,34 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
                 styleConfig.setNavBarTitle("MY INBOX");
                 styleConfig.setNavBarColor("#FFFFFF");
                 styleConfig.setInboxBackgroundColor("#ADD8E6");
-                CleverTapSegmentApplication.clevertap.showAppInbox(styleConfig); //With Tabs
-                //ct.showAppInbox();//Opens Activity with default style configs
+                clevertap.showAppInbox(styleConfig); //With Tabs
+                //clevertap.showAppInbox();//Opens Activity with default style configs
             }
         });
+        updateInboxButton();
     }
 
     @Override
     public void inboxMessagesDidUpdate() {
+        updateInboxButton();
+    }
 
+    private void updateInboxButton() {
+        if (clevertap == null) {
+            return;
+        }
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                final Button inboxButton = findViewById(R.id.inboxButton);
+                if (inboxButton == null) {
+                    return;
+                }
+                final int messageCount = clevertap.getInboxMessageCount();
+                final int unreadMessageCount = clevertap.getInboxMessageUnreadCount();
+                inboxButton.setText(String.format(Locale.getDefault(),"Inbox: %d messages /%d unread", messageCount, unreadMessageCount));
+                inboxButton.setVisibility(View.VISIBLE);
+            }
+        });
     }
 }

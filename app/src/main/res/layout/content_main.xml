@@ -25,14 +25,6 @@
         android:id="@+id/inboxButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Init Inbox"
         android:layout_below="@id/trackButton"/>
-
-    <Button
-        android:id="@+id/inboxButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Open Inbox"
-        android:layout_below="@id/inboxButton"/>
 
 </RelativeLayout>
