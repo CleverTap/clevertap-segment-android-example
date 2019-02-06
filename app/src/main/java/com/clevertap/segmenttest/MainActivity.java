@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
     private static final String TAG = String.format("%s.%s", "CLEVERTAP", MainActivity.class.getName());
     private static final String CLEVERTAP_KEY = "CleverTap";
     private CleverTapAPI clevertap;
-
+    Button inboxButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Button inboxButton = findViewById(R.id.inboxButton);
+        inboxButton = findViewById(R.id.inboxButton);
         if (inboxButton != null) {
             inboxButton.setVisibility(View.GONE);
         }
@@ -166,21 +166,18 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
         }
         if (clevertap != null) {
             clevertap.setCTNotificationInboxListener(MainActivity.this);
-            if (clevertap.getInboxMessageCount() < 0) {
-                clevertap.initializeInbox();
-            } else {
-                inboxDidInitialize();
-            }
+            clevertap.initializeInbox();
         }
     }
 
     private long mLastInboxClickTime = 0;
     @Override
     public void inboxDidInitialize() {
-        Button inboxButton = findViewById(R.id.inboxButton);
+
         if (inboxButton == null) {
             return;
         }
+
         inboxButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final Button inboxButton = findViewById(R.id.inboxButton);
                 if (inboxButton == null) {
                     return;
                 }
