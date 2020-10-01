@@ -4,23 +4,28 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import com.clevertap.android.sdk.CTInboxListener;
 import com.clevertap.android.sdk.CTInboxStyleConfig;
 import com.clevertap.android.sdk.CleverTapAPI;
+import com.clevertap.android.sdk.Utils;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
 import com.segment.analytics.Properties.Product;
+
+import net.andreinc.mockneat.MockNeat;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,30 +65,30 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
         }
 
         Button identifyButton = findViewById(R.id.identifyButton);
+        Button aliasButton = findViewById(R.id.aliasButton);
+        Button resetButton = findViewById(R.id.resetButton);
+        final EditText eTEmail = findViewById(R.id.eTEmail);
+        final EditText eTId = findViewById(R.id.eTId);
 
         identifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                String newUser = Integer.toString(Math.abs(mRandom.nextInt()));
-                Toast.makeText(getApplicationContext(), "identify() called with user id: " + newUser + ".", Toast.LENGTH_LONG).show();
-                ArrayList<String> testArr = new ArrayList<>();
-                testArr.add("one");
-                testArr.add("two");
-                testArr.add("three");
-                Traits traits = new Traits();
-                traits.putEmail("foo@foo.com");
-                traits.putName("FooName");
-                traits.putGender("male");
-                traits.putPhone("+14155551234");
-                traits.put("boolean", true);
-                traits.put("integer", 50);
-                traits.put("float", 1.5);
-                traits.put("long", 12345L);
-                traits.put("string", "hello");
-                traits.put("stringInt", "1");
-                traits.put("testStringArr", testArr);
-                Analytics.with(getApplicationContext()).identify(newUser, traits, null);
-                Analytics.with(getApplicationContext()).screen("Home Screen");
+                pushProfile(eTId, eTEmail,false);
+            }
+        });
+
+        aliasButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                pushProfile(eTId, eTEmail,true);
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Analytics.with(getApplicationContext()).reset();
+                Toast.makeText(getApplicationContext(), "reset() called ", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -112,6 +117,53 @@ public class MainActivity extends AppCompatActivity implements CTInboxListener {
         });
 
         handleIntent(getIntent());
+    }
+
+    private void pushProfile(EditText eTId, EditText eTEmail, boolean isMergeProfile) {
+
+        MockNeat mock = MockNeat.threadLocal();
+        String newUser = String.valueOf(mock.intSeq().get());//Integer.toString(Math.abs(mRandom.nextInt()));
+
+        String userId = eTId.getText().toString();
+        if (!TextUtils.isEmpty(userId.trim()))
+        {
+            newUser=userId;
+        }
+
+        ArrayList<String> testArr = new ArrayList<>();
+        testArr.add("one");
+        testArr.add("two");
+        testArr.add("three");
+        Traits traits = new Traits();
+        String email = eTEmail.getText().toString();
+
+        if (!TextUtils.isEmpty(email.trim()))
+        {
+            traits.putEmail(email);
+        }else
+        {
+            traits.putEmail(mock.emails().get());
+        }
+        traits.putName(mock.names().full().get());
+        traits.putGender(mock.genders().get());
+        traits.putPhone("+14155551234");
+        traits.put("boolean", true);
+        traits.put("integer", 50);
+        traits.put("float", 1.5);
+        traits.put("long", 12345L);
+        traits.put("string", "hello");
+        traits.put("stringInt", "1");
+        traits.put("testStringArr", testArr);
+
+        if (isMergeProfile) {
+            Analytics.with(getApplicationContext()).alias(newUser);
+            Toast.makeText(getApplicationContext(), "alias() called with user id: " + newUser + ".", Toast.LENGTH_LONG).show();
+        } else {
+            //Analytics.with(getApplicationContext()).reset();
+            Toast.makeText(getApplicationContext(), "identify() called with user id: " + newUser + ".", Toast.LENGTH_LONG).show();
+            Analytics.with(getApplicationContext()).identify(newUser, traits, null);
+        }
+        Analytics.with(getApplicationContext()).screen("Home Screen");
     }
 
     @Override

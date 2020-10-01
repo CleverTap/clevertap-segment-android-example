@@ -9,11 +9,28 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <EditText
+        android:id="@+id/eTId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="User Id"/>
+
+    <EditText
+        android:id="@+id/eTEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/eTId"
+        android:hint="Email"
+        />
+
     <Button
         android:id="@+id/identifyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="identify"/>
+        android:text="identify"
+        android:layout_below="@id/eTEmail"/>
+
+
     <Button
         android:id="@+id/trackButton"
         android:layout_width="wrap_content"
@@ -26,5 +43,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/trackButton"/>
+
+    <Button
+        android:id="@+id/aliasButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alias"
+        android:layout_below="@id/inboxButton"/>
+
+    <Button
+        android:id="@+id/resetButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset"
+        android:layout_below="@id/aliasButton"/>
+
 
 </RelativeLayout>
