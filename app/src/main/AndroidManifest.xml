@@ -35,16 +35,10 @@
         </activity>
 
         <service
-            android:name="com.clevertap.android.sdk.FcmTokenListenerService">
+            android:name="com.clevertap.android.sdk.pushnotification.fcm.FcmMessageListenerService"
+            android:exported="true">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-
-        <service
-            android:name="com.clevertap.android.sdk.FcmMessageListenerService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -53,10 +47,10 @@
             android:value="ic_stat_red_star"/>
 
         <service
-            android:name="com.clevertap.android.sdk.CTNotificationIntentService"
-            >
+            android:name="com.clevertap.android.sdk.pushnotification.CTNotificationIntentService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.clevertap.PUSH_EVENT"/>
+                <action android:name="com.clevertap.PUSH_EVENT" />
             </intent-filter>
         </service>
     </application>
