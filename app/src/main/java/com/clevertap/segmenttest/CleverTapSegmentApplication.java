@@ -1,9 +1,13 @@
 package com.clevertap.segmenttest;
 
 import android.app.Application;
+import android.app.NotificationManager;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
 import android.os.Handler;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.SyncListener;
 import com.segment.analytics.Analytics;
@@ -14,7 +18,7 @@ import org.json.JSONObject;
 public class CleverTapSegmentApplication extends Application implements SyncListener {
 
     private static final String TAG = String.format("%s.%s", "CLEVERTAP", CleverTapSegmentApplication.class.getName());
-    private static final String WRITE_KEY = "qp2acCBE3Ph9v4EhOPpXeJtUXa2xepQz";
+    private static final String WRITE_KEY = "UghsI6ubzcaAsplNVSOtx6qf7AXX1Hfc";
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
 
@@ -49,6 +53,14 @@ public class CleverTapSegmentApplication extends Application implements SyncList
         clevertap = instance;
         clevertap.setSyncListener(this);
         getCleverTapAttributionIdentifier();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CleverTapAPI.createNotificationChannel(getApplicationContext(), "BRTesting", "YourChannelName",
+                    "YourChannelDescription",
+                    NotificationManager.IMPORTANCE_MAX, true);
+        }
+
+
     }
 
     private void getCleverTapAttributionIdentifier() {
