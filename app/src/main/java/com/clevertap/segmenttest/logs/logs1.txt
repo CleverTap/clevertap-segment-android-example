@@ -1,0 +1,75 @@
+---  CT::::::        Account ID or Account token is missing from AndroidManifest.xml, unable to create default instance
+---  CT::::::        ExoPlayer is present
+---  CT::::::        Firebase Instance Id is available.class com.google.firebase.iid.FirebaseInstanceId
+---  CT::::::        READ_PHONE_STATE permission not asked by the app or not granted by the user
+---  CT::::::        CleverTap SDK initialized with accountId: TEST-46W-WWR-R85Z accountToken: TEST-200-064 accountRegion:
+---  CT_SA:::        Configured CleverTap+Segment integration and initialized CleverTap.
+---  :APP_APP:       analytics.onIntegrationReady() called
+---  CT::::::        SDK Version Code is 40301
+---  CT::::::        Activity Lifecycle Callback not registered. Either set the android:name in your AndroidManifest.xml application tag to com.clevertap.android.sdk.Application, or, if you have a custom Application class, call ActivityLifecycleCallback.register(this); before super.onCreate() in your class
+---  CT::::::        Application Class is com.clevertap.segmenttest.CleverTapSegmentApplication
+---  :::SG_A  Ran Activity Created on integration Segment.io in 1166 ns.
+---  CT::::::       TEST-46W-WWR-R85Z: Push notification: NULL not from CleverTap - will not process Notification Clicked event.
+---  :::SG_A  Ran Activity Created on integration CleverTap in 25542 ns.
+---  :APP_ACT:       analytics.onIntegrationReady() called
+---  :::SG_A  Ran Activity Started on integration Segment.io in 625 ns.
+---  CT::::::        sdk.pushnotification.CTPushNotificationReceiver is present
+---  :::SG_A  Ran Activity Started on integration CleverTap in 375 ns.
+---  :::SG_A  Ran Activity Resumed on integration Segment.io in 417 ns.
+---  CT::::::        pushnotification.CTNotificationIntentService is present
+---  CT::::::        InAppNotificationActivity is present
+---  CT::::::        inbox.CTInboxActivity is present
+---  CT::::::       TEST-46W-WWR-R85Z: In-app notifications will not be shown on []
+---  CT::::::        geofence.CTGeofenceReceiver not present
+---  CT::::::        geofence.CTLocationUpdateReceiver not present
+---  CT::::::        geofence.CTGeofenceBootReceiver not present
+---  CT::::::       TEST-46W-WWR-R85Z: FCM token using Manifest SenderId: null
+---  :::SG_A  Ran Activity Resumed on integration CleverTap in 1180625 ns.
+---  CT::::::        pushnotification.amp.CTBackgroundJobService is present
+---  CT::::::        pushnotification.amp.CTBackgroundIntentService is present
+---  CT::::::        pushnotification.fcm.FcmMessageListenerService is present
+---  CT::::::       TEST-46W-WWR-R85Z: Notification channel YourChannelName has been created
+---  CT::::::       TEST-46W-WWR-R85Z: Queued event: {"evtName":"App Launched","evtData":{"Build":"120","Version":"1.2.0","OS Version":"11","SDK Version":40301,"Make":"Google","Model":"sdk_gphone_arm64","Carrier":"Android","useIP":false,"OS":"Android","wdt":2.45,"hgt":4.73,"dpi":440,"dt":1,"abckt":"active","lib":"Segment-Android","cc":"us"},"s":1641455877,"pg":1,"type":"event","ep":1641455877,"f":false,"lsl":578,"pai":"com.clevertap.segmenttest","dsync":true}
+---  CT::::::       TEST-46W-WWR-R85Z: Network retry #0
+---  CT::::::       TEST-46W-WWR-R85Z: Failure count is 0. Setting delay frequency to 1s
+---  CT::::::       TEST-46W-WWR-R85Z: Queued event: {"evtName":"wzrk_fetch","evtData":{"t":1},"s":1641455877,"pg":1,"type":"event","ep":1641455877,"f":false,"lsl":578,"dsync":false}
+---  CT::::::       TEST-46W-WWR-R85Z: Network retry #0
+---  CT::::::       TEST-46W-WWR-R85Z: Failure count is 0. Setting delay frequency to 1s
+---  CT::::::       TEST-46W-WWR-R85Z: Queued event: {"profile":{"Carrier":"Android","cc":"us","tz":"Asia\/Kolkata"},"s":1641455877,"pg":1,"type":"profile","ep":1641455877,"f":false,"lsl":578,"dsync":true}
+---  CT::::::       TEST-46W-WWR-R85Z: Network retry #0
+---  CT::::::       TEST-46W-WWR-R85Z: Failure count is 0. Setting delay frequency to 1s
+---  CT::::::       TEST-46W-WWR-R85Z: Queued event: {"data":{"action":"register","id":"eNrTJGV9RWGeHrcBaGX_bu:APA91bH8jAuCI-9xURZApBMTUHw9RIhBYiG_2pjky78SWcDMiQh7SxH6lXrp893btFT38Mll0lxsHFBZbmgCwHgJtgtL3qPYKh2VbNh5ygFNBroeuiCMooVJVsJVSUzR5EOn6TgZclXZ","type":"fcm"},"s":1641455877,"pg":1,"type":"data","ep":1641455877,"f":false,"lsl":578,"dsync":false}
+---  CT::::::       TEST-46W-WWR-R85Z: Network retry #0
+---  CT::::::       TEST-46W-WWR-R85Z: Failure count is 0. Setting delay frequency to 1s
+---  CT::::::       TEST-46W-WWR-R85Z: Send queue contains 3 items: [{"g":"__7f00fecbc2bb469f9f4f1ddd51f4cc84","type":"meta","af":{"Build":"120","Version":"1.2.0","OS Version":"11","SDK Version":40301,"Make":"Google","Model":"sdk_gphone_arm64","Carrier":"Android","useIP":false,"OS":"Android","wdt":2.45,"hgt":4.73,"dpi":440,"dt":1,"abckt":"active","lib":"Segment-Android","cc":"us"},"id":"TEST-46W-WWR-R85Z","tk":"TEST-200-064","l_ts":1641455265,"f_ts":1641455262,"ct_pi":"Email,Identity","ddnd":false,"rtl":[],"rct":0,"ait":0,"frs":true,"arp":{"sv":40301,"dh":856856645,"wdt":2,"d_ts":1641455264,"hgt":4,"av":"1.2.0","v":1,"e_ts":0,"j_n":"Zw==","i_n":"Y2lr","r_ts":1641455266,"id":"46W-WWR-R85Z","j_s":"{ }"},"imp":1,"tlc":[["1608203380",1,1]]}, {"evtName":"App Launched","evtData":{"Build":"120","Version":"1.2.0","OS Version":"11","SDK Version":40301,"Make":"Google","Model":"sdk_gphone_arm64","Carrier":"Android","useIP":false,"OS":"Android","wdt":2.45,"hgt":4.73,"dpi":440,"dt":1,"abckt":"active","lib":"Segment-Android","cc":"us"},"s":1641455877,"pg":1,"type":"event","ep":1641455877,"f":false,"lsl":578,"pai":"com.clevertap.segmenttest","dsync":true},{"evtName":"wzrk_fetch","evtData":{"t":1},"s":1641455877,"pg":1,"type":"event","ep":1641455877,"f":false,"lsl":578,"dsync":false},{"data":{"action":"register","id":"eNrTJGV9RWGeHrcBaGX_bu:APA91bH8jAuCI-9xURZApBMTUHw9RIhBYiG_2pjky78SWcDMiQh7SxH6lXrp893btFT38Mll0lxsHFBZbmgCwHgJtgtL3qPYKh2VbNh5ygFNBroeuiCMooVJVsJVSUzR5EOn6TgZclXZ","type":"fcm"},"s":1641455877,"pg":1,"type":"data","ep":1641455877,"f":false,"lsl":578,"dsync":false}]
+---  CT::::::       TEST-46W-WWR-R85Z: Sending queue to: https://eu1.clevertap-prod.com/a1?os=Android&t=40301&z=TEST-46W-WWR-R85Z&ts=1641455878
+---  CT::::::       TEST-46W-WWR-R85Z: Preparing In-App for display: {"type":"interstitial","bg":"#ffffff","tablet":false,"close":true,"message":{"text":"Message","color":"#434761","replacements":"","og":""},"title":{"text":"Title","color":"#434761","replacements":"","og":""},"buttons":[{"text":"Button","color":"#000000","bg":"#1EB858","border":"#1EB858","radius":"4","actions":{"close":true,"type":"kv","android":"","ios":"","kv":{"ab":"fff","jj":"jkjkj"}}}],"media":{},"isMediaSourceRecommended":false,"recommendedText":{"text":"","replacements":"","og":""},"mediaLandscape":{},"isMediaSourceRecommendedLandscape":false,"recommendedTextLandscape":{"text":"","replacements":"","og":""},"hasPortrait":true,"hasLandscape":true,"is_native":true,"wzrk_id":"1608203380_20220106","wzrk_pivot":"wzrk_default","wzrk_ttl":1641715079,"ti":1608203380,"efc":1}
+---  CT::::::       DisplayUnit :: Cleared Display Units Cache
+---  CT::::::       TEST-46W-WWR-R85Z: Notification ready: {"type":"interstitial","bg":"#ffffff","tablet":false,"close":true,"message":{"text":"Message","color":"#434761","replacements":"","og":""},"title":{"text":"Title","color":"#434761","replacements":"","og":""},"buttons":[{"text":"Button","color":"#000000","bg":"#1EB858","border":"#1EB858","radius":"4","actions":{"close":true,"type":"kv","android":"","ios":"","kv":{"ab":"fff","jj":"jkjkj"}}}],"media":{},"isMediaSourceRecommended":false,"recommendedText":{"text":"","replacements":"","og":""},"mediaLandscape":{},"isMediaSourceRecommendedLandscape":false,"recommendedTextLandscape":{"text":"","replacements":"","og":""},"hasPortrait":true,"hasLandscape":true,"is_native":true,"wzrk_id":"1608203380_20220106","wzrk_pivot":"wzrk_default","wzrk_ttl":1641715079,"ti":1608203380,"efc":1}
+---  CT::::::        Done processing response!
+---  CT::::::       TEST-46W-WWR-R85Z: Queue sent successfully
+---  CT::::::        Displaying In-App: {"type":"interstitial","bg":"#ffffff","tablet":false,"close":true,"message":{"text":"Message","color":"#434761","replacements":"","og":""},"title":{"text":"Title","color":"#434761","replacements":"","og":""},"buttons":[{"text":"Button","color":"#000000","bg":"#1EB858","border":"#1EB858","radius":"4","actions":{"close":true,"type":"kv","android":"","ios":"","kv":{"ab":"fff","jj":"jkjkj"}}}],"media":{},"isMediaSourceRecommended":false,"recommendedText":{"text":"","replacements":"","og":""},"mediaLandscape":{},"isMediaSourceRecommendedLandscape":false,"recommendedTextLandscape":{"text":"","replacements":"","og":""},"hasPortrait":true,"hasLandscape":true,"is_native":true,"wzrk_id":"1608203380_20220106","wzrk_pivot":"wzrk_default","wzrk_ttl":1641715079,"ti":1608203380,"efc":1}
+---  :::SG_A  Ran Activity Paused on integration Segment.io in 2333 ns.
+---  :::SG_A  Ran Activity Paused on integration CleverTap in 136583 ns.
+---  CT::::::       TEST-46W-WWR-R85Z: Send queue contains 1 items: [{"g":"__7f00fecbc2bb469f9f4f1ddd51f4cc84","type":"meta","af":{"Build":"120","Version":"1.2.0","OS Version":"11","SDK Version":40301,"Make":"Google","Model":"sdk_gphone_arm64","Carrier":"Android","useIP":false,"OS":"Android","wdt":2.45,"hgt":4.73,"dpi":440,"dt":1,"abckt":"active","lib":"Segment-Android","cc":"us"},"id":"TEST-46W-WWR-R85Z","tk":"TEST-200-064","l_ts":1641455878,"f_ts":1641455262,"ct_pi":"Email,Identity","ddnd":false,"rtl":[],"rct":0,"ait":0,"frs":false,"arp":{"sv":40301,"dh":856856645,"wdt":2,"d_ts":1641455264,"hgt":4,"av":"1.2.0","v":1,"e_ts":0,"j_n":"Zw==","i_n":"Y2lr","r_ts":1641455879,"id":"46W-WWR-R85Z","j_s":"{ }"},"imp":2,"tlc":[["1608203380",2,2]]}, {"profile":{"Carrier":"Android","cc":"us","tz":"Asia\/Kolkata"},"s":1641455877,"pg":1,"type":"profile","ep":1641455877,"f":false,"lsl":578,"dsync":true}]
+---  CT::::::       TEST-46W-WWR-R85Z: Sending queue to: https://eu1.clevertap-prod.com/a1?os=Android&t=40301&z=TEST-46W-WWR-R85Z&ts=1641455879
+---  :::SG_A  Ran Activity Created on integration Segment.io in 1834 ns.
+---  CT::::::       TEST-46W-WWR-R85Z: Push notification: Bundle[{configBundle=Bundle[mParcelledData.dataSize=352], inApp=com.clevertap.android.sdk.inapp.CTInAppNotification@d8c8a1a}] not from CleverTap - will not process Notification Clicked event.
+---  :::SG_A  Ran Activity Created on integration CleverTap in 561667 ns.
+---  :::SG_A  Ran Activity Started on integration Segment.io in 833 ns.
+---  :::SG_A  Ran Activity Started on integration CleverTap in 667 ns.
+---  :::SG_A  Ran Activity Resumed on integration Segment.io in 791 ns.
+---  :::SG_A  Ran Activity Resumed on integration CleverTap in 324833 ns.
+---  CT::::::        Done processing response!
+---  CT::::::       TEST-46W-WWR-R85Z: Queue sent successfully
+---  CT::::::       TEST-46W-WWR-R85Z: Queued event: {"evtName":"Notification Viewed","evtData":{"wzrk_id":"1608203380_20220106","wzrk_pivot":"wzrk_default","wzrk_ttl":1641715079},"s":1641455877,"pg":2,"type":"event","ep":1641455879,"f":false,"lsl":578,"dsync":false}
+---  CT::::::       TEST-46W-WWR-R85Z: Network retry #0
+---  CT::::::       TEST-46W-WWR-R85Z: Failure count is 0. Setting delay frequency to 1s
+---  CT::::::       TEST-46W-WWR-R85Z: Send queue contains 1 items: [{"g":"__7f00fecbc2bb469f9f4f1ddd51f4cc84","type":"meta","af":{"Build":"120","Version":"1.2.0","OS Version":"11","SDK Version":40301,"Make":"Google","Model":"sdk_gphone_arm64","Carrier":"Android","useIP":false,"OS":"Android","wdt":2.45,"hgt":4.73,"dpi":440,"dt":1,"abckt":"active","lib":"Segment-Android","cc":"us"},"id":"TEST-46W-WWR-R85Z","tk":"TEST-200-064","l_ts":1641455879,"f_ts":1641455262,"ct_pi":"Email,Identity","ddnd":false,"rtl":[],"rct":0,"ait":0,"frs":false,"arp":{"sv":40301,"dh":856856645,"wdt":2,"d_ts":1641455264,"hgt":4,"av":"1.2.0","v":1,"e_ts":0,"j_n":"Zw==","i_n":"Y2lr","r_ts":1641455879,"id":"46W-WWR-R85Z","j_s":"{ }"},"imp":2,"tlc":[["1608203380",2,2]]}, {"evtName":"Notification Viewed","evtData":{"wzrk_id":"1608203380_20220106","wzrk_pivot":"wzrk_default","wzrk_ttl":1641715079},"s":1641455877,"pg":2,"type":"event","ep":1641455879,"f":false,"lsl":578,"dsync":false}]
+---  CT::::::       TEST-46W-WWR-R85Z: Sending queue to: https://eu1.clevertap-prod.com/a1?os=Android&t=40301&z=TEST-46W-WWR-R85Z&ts=1641455880
+---  CT::::::        Done processing response!
+---  CT::::::       TEST-46W-WWR-R85Z: Queue sent successfully
+
+
+
+    private static final String WRITE_KEY ="VVsCywzFPA8wbGLyNFxwYnixchTUknJy"; // "UghsI6ubzcaAsplNVSOtx6qf7AXX1Hfc";

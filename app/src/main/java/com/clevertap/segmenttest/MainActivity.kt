@@ -72,9 +72,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         val id = item.itemId
-        return if (id == R.id.action_settings) {
-            true
-        } else super.onOptionsItemSelected(item)
+        return if (id == R.id.action_settings) true else super.onOptionsItemSelected(item)
     }
 
     private fun segmentIO_ClevertapIntegrate() {
@@ -155,9 +153,8 @@ class MainActivity : AppCompatActivity() {
         }
         clevertap!!.ctNotificationInboxListener = object :CTInboxListener{
             override fun inboxDidInitialize() {
-                if (inboxButton == null) {
-                    return
-                }
+                if (inboxButton == null) return
+
                 inboxButton!!.setOnClickListener(View.OnClickListener {
                     if (clevertap == null) {
                         return@OnClickListener
