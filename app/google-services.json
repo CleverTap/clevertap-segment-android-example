@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "719835946892",
-    "project_id": "my-word-123",
-    "storage_bucket": "my-word-123.appspot.com"
+    "project_number": "1098260847210",
+    "firebase_url": "https://templatesapp-7d1a9.firebaseio.com",
+    "project_id": "templatesapp-7d1a9",
+    "storage_bucket": "templatesapp-7d1a9.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:719835946892:android:ee6cc31b93fd2f368f40a9",
+        "mobilesdk_app_id": "1:1098260847210:android:ea439bb8d5c4143f8cc813",
         "android_client_info": {
-          "package_name": "com.clevertap.segmenttest"
+          "package_name": "com.clevertap.demo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "719835946892-pjhdmacrid93n8p8tr316fvdb7pmafh5.apps.googleusercontent.com",
+          "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyhrzjBm5jcX8H5s5KRsdRn0VfywtsBlM"
+          "current_key": "AIzaSyCk3GTx2JW_yShvpMmjGPv03GjrwhK6JK8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "719835946892-pjhdmacrid93n8p8tr316fvdb7pmafh5.apps.googleusercontent.com",
+              "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -36,35 +37,122 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:719835946892:android:37d73e6ba833ce988f40a9",
+        "mobilesdk_app_id": "1:1098260847210:android:b2623737bc2cc75d8cc813",
         "android_client_info": {
-          "package_name": "work.curioustools.myword"
+          "package_name": "com.clevertap.segmenttest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "719835946892-g7bhc8idqas8qe1e0o43eebpfivj9kd5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "work.curioustools.myword",
-            "certificate_hash": "985150de89f7e8232b138f39d482d8f243f89c2c"
-          }
-        },
-        {
-          "client_id": "719835946892-pjhdmacrid93n8p8tr316fvdb7pmafh5.apps.googleusercontent.com",
+          "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDyhrzjBm5jcX8H5s5KRsdRn0VfywtsBlM"
+          "current_key": "AIzaSyCk3GTx2JW_yShvpMmjGPv03GjrwhK6JK8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "719835946892-pjhdmacrid93n8p8tr316fvdb7pmafh5.apps.googleusercontent.com",
+              "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098260847210:android:493da3f787374c1d",
+        "android_client_info": {
+          "package_name": "com.clevertap.templateapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098260847210-3d93hm19berrr857fi9b2eptr7295i9n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clevertap.templateapp",
+            "certificate_hash": "3e1746473c0b7350a10627f5646e5dc4ec22f632"
+          }
+        },
+        {
+          "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk3GTx2JW_yShvpMmjGPv03GjrwhK6JK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098260847210:android:5ea65acdee9c0f958cc813",
+        "android_client_info": {
+          "package_name": "com.reactnct"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk3GTx2JW_yShvpMmjGPv03GjrwhK6JK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1098260847210:android:cf1eb385bc4f48e08cc813",
+        "android_client_info": {
+          "package_name": "work.curioustools.pushtemplatesintegration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk3GTx2JW_yShvpMmjGPv03GjrwhK6JK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098260847210-nrvga4uu9lvi8akt48rvqerupf0dl7fc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

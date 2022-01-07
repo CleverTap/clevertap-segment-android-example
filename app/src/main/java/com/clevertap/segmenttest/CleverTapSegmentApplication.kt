@@ -15,7 +15,7 @@ class CleverTapSegmentApplication : Application() {
     private var clevertap: CleverTapAPI? = null
 
     private val TAG = String.format("%s.%s", "CLEVERTAP", CleverTapSegmentApplication::class.java.name)
-    private val WRITE_KEY = "VVsCywzFPA8wbGLyNFxwYnixchTUknJy"
+    private val WRITE_KEY = "02Ji9A5PkbdOhsqXAlGgBgaP5ZsZVG0f"
     private val CLEVERTAP_KEY = "CleverTap"
     private var sCleverTapSegmentEnabled = false
     private var handler: Handler? = null
