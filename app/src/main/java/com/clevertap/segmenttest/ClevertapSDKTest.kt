@@ -1,46 +1,126 @@
-package com.clevertap.segmenttest.logs
+@file:Suppress("DEPRECATION")
 
+package com.clevertap.segmenttest
+
+//import com.clevertap.android.geofence.CTGeofenceAPI
+//import com.clevertap.android.geofence.CTGeofenceSettings
+//import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.pm.PackageManager
-import android.content.res.Resources
-import android.media.RingtoneManager
-import android.net.Uri
 import android.os.Build
-import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.core.widget.NestedScrollView
-//import com.clevertap.android.geofence.CTGeofenceAPI
-//import com.clevertap.android.geofence.CTGeofenceSettings
-//import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
-import com.clevertap.android.sdk.ActivityLifecycleCallback
 import com.clevertap.android.sdk.CTInboxStyleConfig
 import com.clevertap.android.sdk.CleverTapAPI
-import com.clevertap.android.sdk.pushnotification.CTPushNotificationListener
-import com.clevertap.android.sdk.pushnotification.amp.CTPushAmpListener
 import java.util.*
-import kotlin.collections.HashMap
 
 class ClevertapSDKTest() {
+//    fun initApplicationBeforeOnCreate(application: Application) {
+//        log("ctInitLogging: ")
+//        if (/*BuildConfig.DEBUG*/ true) CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
+//        else CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.OFF)
+//
+//        //TemplateRenderer.debugLevel = 3;
+//        //CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
+//        //application.registerActivityLifecycleCallbacks(
+//        //    object : Application.ActivityLifecycleCallbacks {
+//        //        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
+//        //        override fun onActivityStarted(activity: Activity) {}
+//        //        override fun onActivityResumed(activity: Activity) {}
+//        //        override fun onActivityPaused(activity: Activity) {}
+//        //        override fun onActivityStopped(activity: Activity) {}
+//        //        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+//        //        override fun onActivityDestroyed(activity: Activity) {}
+//        //    }
+//        //)
+//
+//        log("ctAttachLifeCycleListener: ")
+//        ActivityLifecycleCallback.register(application)
+//
+//    }
+//
+//    fun initApplicationAfterOnCreate(application: Application) {
+//        log("ctInitGlobalInstance: ")
+//
+//        appCtx = application.applicationContext
+//
+//
+//        //ProviderInstaller.installIfNeededAsync(this, object : ProviderInstaller.ProviderInstallListener {
+//        //    override fun onProviderInstalled() {}
+//        //    override fun onProviderInstallFailed(i: Int, intent: Intent?) { Log.i("ProviderInstaller", "Provider install failed ($i) : SSL Problems may occurs") }
+//        //})
+//
+//        //val defaultInstance = CleverTapAPI.getDefaultInstance(this)
+//        //defaultInstance?.syncListener = object : SyncListener {
+//        //    override fun profileDataUpdated(updates: JSONObject?) {no op }
+//        //    override fun profileDidInitialize(CleverTapID: String?) { println("CleverTap DeviceID from Application class= $CleverTapID") }
+//        //}
+//
+//
+//        ctCoreApi = CleverTapAPI.getDefaultInstance(appCtx)
+//
+//        log("ctInBoxInitialise: ")
+//        ctCoreApi?.initializeInbox()
+//
+//
+//        log("called ctNotifCreateChannels: ")
+//        val importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) NotificationManager.IMPORTANCE_MAX else 5
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            CleverTapAPI.createNotificationChannelGroup(appCtx, "id_my_word_group", "MyWord")
+//            CleverTapAPI.createNotificationChannel(appCtx, "id_got", "GOT", "GOT channel notifications description", importance, true, null)
+//
+//            CleverTapAPI.deleteNotificationChannel(appCtx, "testChannel")
+//            CleverTapAPI.deleteNotificationChannelGroup(appCtx, "testGroup");
+//        }
+//        CleverTapAPI.createNotificationChannel(appCtx, "c_general_id", "c_general_name", "", importance, true)
+//        CleverTapAPI.createNotificationChannel(appCtx, "GSTTesting", "GSTTesting", "", importance, true)
+//        CleverTapAPI.createNotificationChannel(appCtx, "BRTesting", "Core", "Core notifications", NotificationManager.IMPORTANCE_MAX, true)
+//        CleverTapAPI.createNotificationChannel(appCtx, "PTTesting", "Push templates", "All push templates", NotificationManager.IMPORTANCE_MAX, true)
+//
+//
+//        log("called ctNotifAttachListeners: ")
+//        ctCoreApi?.ctPushNotificationListener = CTPushNotificationListener { receivedNotifInfo ->
+//            log("received notification: $receivedNotifInfo")
+//
+//            //hack  controlling in app notifications from status bar notifications
+//            if (receivedNotifInfo["discard"] == 1) ctCoreApi?.discardInAppNotifications()
+//            if (receivedNotifInfo["resume"] == 1) ctCoreApi?.resumeInAppNotifications()
+//            if (receivedNotifInfo["suspend"] == 1) ctCoreApi?.suspendInAppNotifications()
+//        }
+//
+//        log("called ctNotifPushAmpInitListener: ")
+//        ctCoreApi?.ctPushAmpListener = CTPushAmpListener { extras: Bundle? ->
+//            CleverTapAPI.processPushNotification(appCtx, extras)
+//            appCtx.showNotif(title = "push amplification notification", channelId = "forced_notif_channel")
+//        }
+//    }
+
+    fun setupTestActivity(activity: AppCompatActivity, llID: Int, customCleverTapInstance: CleverTapAPI? = null) {
+        testActivity = activity
+        appCtx = activity.applicationContext
+        forceUpdateCTCore(customCleverTapInstance ?: CleverTapAPI.getDefaultInstance(appCtx))
+        activity.findViewById<LinearLayout>(llID).addView(getInitView())
+    }
+    fun  forceUpdateCTCore(ctcore:CleverTapAPI?){
+        ctCoreApi = ctcore
+    }
+
     private var ctCoreApi: CleverTapAPI? = null
+        set(value) {
+            log(" ctCoreApi >>> old value : $field. new value: $value")
+            field =value
+        }
 
     private var testActivity: AppCompatActivity? = null
 
@@ -134,9 +214,9 @@ class ClevertapSDKTest() {
             ctCoreApi?.location = ctCoreApi?.location
         },
         "15. Get profile info(like name, id, identifiers , etc)" to {
-            logIt("Profile Name = ${ctCoreApi?.getProperty("Name")}")
-            logIt("Profile CleverTapId = ${ctCoreApi?.cleverTapID}")
-            logIt("Profile CleverTap AttributionIdentifier = ${ctCoreApi?.cleverTapAttributionIdentifier}")
+             log(context = appCtx,key = "Profile Name = ${ctCoreApi?.getProperty("Name")}")
+             log(context = appCtx,key = "Profile CleverTapId = ${ctCoreApi?.cleverTapID}")
+             log(context = appCtx,key = "Profile CleverTap AttributionIdentifier = ${ctCoreApi?.cleverTapAttributionIdentifier}")
         },
         "16. Profile Update Via onUserLogin(login)" to {
             val newProfile = HashMap<String, Any>()
@@ -165,102 +245,102 @@ class ClevertapSDKTest() {
             }
         },
         "18. show total inbox message count" to {
-            logIt("Total inbox message count = ${ctCoreApi?.inboxMessageCount}")
+             log(context = appCtx,key = "Total inbox message count = ${ctCoreApi?.inboxMessageCount}")
         },
         "19. show unread inbox message count" to {
-            logIt("Unread inbox message count = ${ctCoreApi?.inboxMessageUnreadCount}")
+             log(context = appCtx,key = "Unread inbox message count = ${ctCoreApi?.inboxMessageUnreadCount}")
         },
         "20. All inbox messages" to {
             ctCoreApi?.allInboxMessages?.forEach {
-                logIt("All inbox messages ID = ${it.messageId}")
+                 log(context = appCtx,key = "All inbox messages ID = ${it.messageId}")
             }
         },
         "21. All unread inbox messages" to {
             ctCoreApi?.unreadInboxMessages?.forEach {
-                logIt("All unread inbox messages ID = ${it.messageId}")
+                 log(context = appCtx,key = "All unread inbox messages ID = ${it.messageId}")
             }
         },
         "22. Get message object" to {
             val firstMessageId = ctCoreApi?.allInboxMessages?.firstOrNull()?.messageId
             firstMessageId?.also {
                 val inboxMessageForId = ctCoreApi?.getInboxMessageForId(it)
-                logIt("inboxMessage For Id $it = ${inboxMessageForId?.data}")
-            } ?: logIt("inboxMessage Id is null")
+                 log(context = appCtx,key = "inboxMessage For Id $it = ${inboxMessageForId?.data}")
+            } ?:  log(context = appCtx,key = "inboxMessage Id is null")
         },
         "23. Deleted inboxMessage For msg Id" to {
             val firstMessageId = ctCoreApi?.allInboxMessages?.firstOrNull()?.messageId
             //Delete message object belonging to the given message id only. Message id should be a String
             firstMessageId?.also {
                 ctCoreApi?.deleteInboxMessage(it)
-                logIt("Deleted inboxMessage For Id = $it")
-            } ?: logIt("inboxMessage Id is null")
+                 log(context = appCtx,key = "Deleted inboxMessage For Id = $it")
+            } ?:  log(context = appCtx,key = "inboxMessage Id is null")
         },
         "24. Deleted inboxMessage For msg object" to {
             val firstMessage = ctCoreApi?.allInboxMessages?.firstOrNull()
             //Delete message object belonging to the given CTInboxMessage.
             firstMessage?.also {
                 ctCoreApi?.deleteInboxMessage(it)
-                logIt("Deleted inboxMessage = ${it.messageId}")
-            } ?: logIt("inboxMessage is null")
+                 log(context = appCtx,key = "Deleted inboxMessage = ${it.messageId}")
+            } ?:  log(context = appCtx,key = "inboxMessage is null")
         },
         "25. Mark inbox message as read(by id)" to {
             val firstMessageId = ctCoreApi?.unreadInboxMessages?.firstOrNull()?.messageId
             //Mark Message as Read. Message id should be a String
             firstMessageId?.also {
                 ctCoreApi?.markReadInboxMessage(it)
-                logIt("Marked Message as Read For Id = $it")
-            } ?: logIt("inboxMessage Id is null")
+                 log(context = appCtx,key = "Marked Message as Read For Id = $it")
+            } ?:  log(context = appCtx,key = "inboxMessage Id is null")
         },
         "26. Mark inbox message as read(by id) " to {
             val firstMessage = ctCoreApi?.unreadInboxMessages?.firstOrNull()
             //Mark message as Read. Message should object of CTInboxMessage
             firstMessage?.also {
                 ctCoreApi?.markReadInboxMessage(it)
-                logIt("Marked Message as Read = ${it.messageId}")
-            } ?: logIt("inboxMessage is null")
+                 log(context = appCtx,key = "Marked Message as Read = ${it.messageId}")
+            } ?:  log(context = appCtx,key = "inboxMessage is null")
         },
         "27. Raise notification viewed event for inbox message by id " to {
             val firstMessageId = ctCoreApi?.allInboxMessages?.firstOrNull()?.messageId
             //Raise Notification Viewed event for Inbox Message. Message id should be a String
             firstMessageId?.also {
                 ctCoreApi?.pushInboxNotificationViewedEvent(it)
-                logIt("Raised Notification Viewed event For Id = $it")
-            } ?: logIt("inboxMessage Id is null")
+                 log(context = appCtx,key = "Raised Notification Viewed event For Id = $it")
+            } ?:  log(context = appCtx,key = "inboxMessage Id is null")
         },
         "28. Raise notification clicked event for inbox message by id " to {
             val firstMessageId = ctCoreApi?.allInboxMessages?.firstOrNull()?.messageId
             //Raise Notification Clicked event for Inbox Message. Message id should be a String
             firstMessageId?.also {
                 ctCoreApi?.pushInboxNotificationClickedEvent(it)
-                logIt("Raised Notification Clicked event For Id = $it")
-            } ?: logIt("inboxMessage Id is null")
+                 log(context = appCtx,key = "Raised Notification Clicked event For Id = $it")
+            } ?:  log(context = appCtx,key = "inboxMessage Id is null")
         },
         "29. Get DisplayUnit by unit id" to {
             val displayUnitID = ctCoreApi?.allDisplayUnits?.firstOrNull()?.unitID
             //Get DisplayUnit by unit id. unit id should be a String
             displayUnitID?.also {
                 val displayUnitForId = ctCoreApi?.getDisplayUnitForId(it)
-                logIt("DisplayUnit for Id $it = $displayUnitForId")
-            } ?: logIt("DisplayUnit Id is null")
+                 log(context = appCtx,key = "DisplayUnit for Id $it = $displayUnitForId")
+            } ?:  log(context = appCtx,key = "DisplayUnit Id is null")
         },
         "30. get all display units" to {
-            logIt("All Display Units = ${ctCoreApi?.allDisplayUnits}") // get all display units
+             log(context = appCtx,key = "All Display Units = ${ctCoreApi?.allDisplayUnits}") // get all display units
         },
         "31. Raise Notification Viewed event for DisplayUnit id" to {
             val displayUnitID = ctCoreApi?.allDisplayUnits?.firstOrNull()?.unitID
             //Raise Notification Viewed event for DisplayUnit. Message id should be a String
             displayUnitID?.also {
                 ctCoreApi?.pushDisplayUnitViewedEventForID(it)
-                logIt("Raised Notification Viewed event For DisplayUnit Id = $it")
-            } ?: logIt("DisplayUnit Id is null")
+                 log(context = appCtx,key = "Raised Notification Viewed event For DisplayUnit Id = $it")
+            } ?:  log(context = appCtx,key = "DisplayUnit Id is null")
         },
         "32. Raise Notification Clicked event for DisplayUnit id" to {
             val displayUnitID = ctCoreApi?.allDisplayUnits?.firstOrNull()?.unitID
             //Raise Notification Clicked event for DisplayUnit. Message id should be a String
             displayUnitID?.also {
                 ctCoreApi?.pushDisplayUnitClickedEventForID(it)
-                logIt("Raised Notification Clicked event For DisplayUnit Id = $it")
-            } ?: logIt("DisplayUnit Id is null")
+                 log(context = appCtx,key = "Raised Notification Clicked event For DisplayUnit Id = $it")
+            } ?:  log(context = appCtx,key = "DisplayUnit Id is null")
         },
         "33. set product config defaults" to {
             val hashMap = hashMapOf<String, Any>(
@@ -287,25 +367,25 @@ class ClevertapSDKTest() {
         "39. productConfig getting all values" to {
             //get all product config values
             ctCoreApi?.productConfig()?.apply {
-                logIt("Product Config text color val in string : ${getString("text color")}")
-                logIt("Product Config is shown val in boolean : ${getBoolean("is shown")}")
-                logIt("Product Config msg count val in long : ${getLong("msg count")}")
-                logIt("Product Config price val in double : ${getDouble("price")}")
-                logIt("Product Config json val in string : ${getString("json")}")
+                 log(context = appCtx,key = "Product Config text color val in string : ${getString("configKey2")}")
+                 log(context = appCtx,key = "Product Config is shown val in boolean : ${getBoolean("is shown")}")
+                 log(context = appCtx,key = "Product Config msg count val in long : ${getLong("msg count")}")
+                 log(context = appCtx,key = "Product Config price val in double : ${getLong("discount")}")
+                 log(context = appCtx,key = "Product Config json val in string : ${getString("json")}")
             }
         },
         "40. productConfig lastFetchTimeStampInMillis" to {
-            logIt("Product Config lastFetchTimeStampInMillis = ${ctCoreApi?.productConfig()?.lastFetchTimeStampInMillis}")
+             log(context = appCtx,key = "Product Config lastFetchTimeStampInMillis = ${ctCoreApi?.productConfig()?.lastFetchTimeStampInMillis}")
         },
         "41. Feature Flags `is shown`" to {
-            logIt("Feature Flags is shown val in boolean = ${ctCoreApi?.featureFlag()?.get("is shown", true)}")
+             log(context = appCtx,key = "Feature Flags is shown val in boolean = ${ctCoreApi?.featureFlag()?.get("big banner", false)}")
         },
         "42. user cleverTapAttributionIdentifier" to {
-            logIt("CleverTapAttribution Identifier = ${ctCoreApi?.cleverTapAttributionIdentifier}")
+             log(context = appCtx,key = "CleverTapAttribution Identifier = ${ctCoreApi?.cleverTapAttributionIdentifier}")
         },
         "43. getCleverTapID" to {
             ctCoreApi?.getCleverTapID {
-                logIt("CleverTap DeviceID from Application class= $it, thread=${if (android.os.Looper.myLooper() == android.os.Looper.getMainLooper()) "mainthread" else "bg thread"}")
+                 log(context = appCtx,key = "CleverTap DeviceID from Application class= $it, thread=${if (android.os.Looper.myLooper() == android.os.Looper.getMainLooper()) "mainthread" else "bg thread"}")
             }
         },
         "44. Push Templates: Send Basic Push " to {
@@ -371,7 +451,7 @@ class ClevertapSDKTest() {
         "64. init Geofence API" to {
             when {
                 // proceed only if cleverTap instance is not null
-                ctCoreApi == null -> logIt("cleverTapInstance is null")
+                ctCoreApi == null ->  log(context = appCtx,key = "cleverTapInstance is null")
                 !checkPermissions() -> requestPermissions()
                 else -> initCTGeofenceApi(false)
             }
@@ -392,96 +472,6 @@ class ClevertapSDKTest() {
         },
     )
 
-
-    fun initApplicationBeforeOnCreate(application: Application) {
-        log("ctInitLogging: ")
-        if (/*BuildConfig.DEBUG*/ true) CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
-        else CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.OFF)
-
-        //TemplateRenderer.debugLevel = 3;
-        //CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
-        //application.registerActivityLifecycleCallbacks(
-        //    object : Application.ActivityLifecycleCallbacks {
-        //        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
-        //        override fun onActivityStarted(activity: Activity) {}
-        //        override fun onActivityResumed(activity: Activity) {}
-        //        override fun onActivityPaused(activity: Activity) {}
-        //        override fun onActivityStopped(activity: Activity) {}
-        //        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-        //        override fun onActivityDestroyed(activity: Activity) {}
-        //    }
-        //)
-
-        log("ctAttachLifeCycleListener: ")
-        ActivityLifecycleCallback.register(application)
-
-    }
-
-    fun initApplicationAfterOnCreate(application: Application) {
-        log("ctInitGlobalInstance: ")
-
-        appCtx = application.applicationContext
-
-
-        //ProviderInstaller.installIfNeededAsync(this, object : ProviderInstaller.ProviderInstallListener {
-        //    override fun onProviderInstalled() {}
-        //    override fun onProviderInstallFailed(i: Int, intent: Intent?) { Log.i("ProviderInstaller", "Provider install failed ($i) : SSL Problems may occurs") }
-        //})
-
-        //val defaultInstance = CleverTapAPI.getDefaultInstance(this)
-        //defaultInstance?.syncListener = object : SyncListener {
-        //    override fun profileDataUpdated(updates: JSONObject?) {no op }
-        //    override fun profileDidInitialize(CleverTapID: String?) { println("CleverTap DeviceID from Application class= $CleverTapID") }
-        //}
-
-
-        ctCoreApi = CleverTapAPI.getDefaultInstance(appCtx)
-
-        log("ctInBoxInitialise: ")
-        ctCoreApi?.initializeInbox()
-
-
-        log("called ctNotifCreateChannels: ")
-        val importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) NotificationManager.IMPORTANCE_MAX else 5
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CleverTapAPI.createNotificationChannelGroup(appCtx, "id_my_word_group", "MyWord")
-            CleverTapAPI.createNotificationChannel(appCtx, "id_got", "GOT", "GOT channel notifications description", importance, true, null)
-
-            CleverTapAPI.deleteNotificationChannel(appCtx, "testChannel")
-            CleverTapAPI.deleteNotificationChannelGroup(appCtx, "testGroup");
-        }
-        CleverTapAPI.createNotificationChannel(appCtx, "c_general_id", "c_general_name", "", importance, true)
-        CleverTapAPI.createNotificationChannel(appCtx, "GSTTesting", "GSTTesting", "", importance, true)
-        CleverTapAPI.createNotificationChannel(appCtx, "BRTesting", "Core", "Core notifications", NotificationManager.IMPORTANCE_MAX, true)
-        CleverTapAPI.createNotificationChannel(appCtx, "PTTesting", "Push templates", "All push templates", NotificationManager.IMPORTANCE_MAX, true)
-
-
-        log("called ctNotifAttachListeners: ")
-        ctCoreApi?.ctPushNotificationListener = CTPushNotificationListener { receivedNotifInfo ->
-            log("received notification: $receivedNotifInfo")
-
-            //hack  controlling in app notifications from status bar notifications
-            if (receivedNotifInfo["discard"] == 1) ctCoreApi?.discardInAppNotifications()
-            if (receivedNotifInfo["resume"] == 1) ctCoreApi?.resumeInAppNotifications()
-            if (receivedNotifInfo["suspend"] == 1) ctCoreApi?.suspendInAppNotifications()
-        }
-
-        log("called ctNotifPushAmpInitListener: ")
-        ctCoreApi?.ctPushAmpListener = CTPushAmpListener { extras: Bundle? ->
-            CleverTapAPI.processPushNotification(appCtx, extras)
-            appCtx.showNotif(title = "push amplification notification", channelId = "forced_notif_channel")
-        }
-    }
-
-
-    fun setupTestActivity(activity: AppCompatActivity, llID: Int) {
-        testActivity = activity
-        appCtx = activity.applicationContext
-        if (ctCoreApi == null) ctCoreApi = CleverTapAPI.getDefaultInstance(appCtx)
-
-        activity.findViewById<LinearLayout>(llID).addView(getInitView())
-    }
-
     private fun getInitView(): View {
         val appCtx = this.appCtx ?: error("appCtx is null")
         val nsv = NestedScrollView(appCtx)
@@ -499,7 +489,7 @@ class ClevertapSDKTest() {
             textView.minWidth = 120.dpValue
             textView.gravity = Gravity.CENTER_HORIZONTAL
             textView.setOnClickListener {
-                logIt("clicked:${content.key}")
+                 log(context = appCtx,key = "clicked:${content.key}")
                 content.value.invoke()
             }
             textView.text = content.key
@@ -550,92 +540,43 @@ class ClevertapSDKTest() {
     }
 
     private fun initCTGeofenceApi(triggerUpdates: Boolean, deactivate: Boolean = false) {
-        /*
-        val testActivity = this.testActivity ?: return
-
-        val cleverTapInstance = ctCoreApi ?: return
-        val context = testActivity.applicationContext ?: return
-
-        CTGeofenceAPI.getInstance(context).apply {
-            init(
-                CTGeofenceSettings.Builder()
-                    .enableBackgroundLocationUpdates(true)
-                    .setLogLevel(com.clevertap.android.geofence.Logger.DEBUG)
-                    .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)
-                    .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)
-                    .setGeofenceMonitoringCount(99)
-                    .setInterval(3600000) // 1 hour
-                    .setFastestInterval(1800000) // 30 minutes
-                    .setSmallestDisplacement(1000f) // 1 km
-                    .setGeofenceNotificationResponsiveness(300000) // 5 minute
-                    .build(), cleverTapInstance
-            )
-            setOnGeofenceApiInitializedListener {
-                Toast.makeText(context, "Geofence API initialized", Toast.LENGTH_SHORT).show()
-            }
-            setCtGeofenceEventsListener(object : CTGeofenceEventsListener {
-                override fun onGeofenceEnteredEvent(jsonObject: JSONObject) {
-                    Toast.makeText(context, "Geofence Entered", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onGeofenceExitedEvent(jsonObject: JSONObject) {
-                    Toast.makeText(context, "Geofence Exited", Toast.LENGTH_SHORT).show()
-                }
-            })
-            setCtLocationUpdatesListener { Toast.makeText(context, "Location updated", Toast.LENGTH_SHORT).show() }
-            if (triggerUpdates) triggerLocation()
-            if (deactivate) deactivate()
-        }
-        */
-
-    }
-
-
-    private fun logIt(value: Any) {
-        Toast.makeText(appCtx, value.toString(), Toast.LENGTH_SHORT).show()
-        Log.e("CUSTOM_TAG", value.toString())
-        System.out.println(value)
-    }
-
-
-    private val Number.dpValue get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics).toInt()
-
-    private fun Context?.showNotif(
-        title: String = "title",
-        body: String? = "body",
-        @DrawableRes smallIcon: Int = android.R.drawable.ic_notification_clear_all,
-        channelId: String = "defualt_channel",
-        channelInfo: String = "channel info",
-        priorityFromBundle: Int? = null,
-        notificationId: Int = 0,
-        soundUri: Uri? = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION),
-        autoCancel: Boolean = true,
-        onClickPendingIntent: PendingIntent? = null,
-    ) {
-        this ?: return
-        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager ?: return
-        log("showNotif() called with: body = $body, smallIcon = $smallIcon, channelId = $channelId, channelInfo = $channelInfo, priorityFromBundle = $priorityFromBundle, title = $title, notificationId = $notificationId, soundUri = $soundUri, autoCancel = $autoCancel, onClickPendingIntent = $onClickPendingIntent")
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val priorityFinal = priorityFromBundle ?: NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channelId, channelInfo, priorityFinal)
-            manager.createNotificationChannel(channel)
-        }
-
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(smallIcon)
-            .setContentTitle(title)
-            .setAutoCancel(autoCancel)
-
-        if (soundUri != null) notificationBuilder.setSound(soundUri)
-        if (body != null) notificationBuilder.setContentText(body)
-        if (onClickPendingIntent != null) notificationBuilder.setContentIntent(onClickPendingIntent)
-
-        manager.notify(notificationId, notificationBuilder.build())
-    }
-
-
-    fun log(key: String, value: Any? = null, tag: String = "CUSTOM_LOGS") {
-        if (value == null) Log.e(tag, key)
-        else Log.e(tag, "$key:$value ")
+//
+//        val testActivity = this.testActivity ?: return
+//
+//        val cleverTapInstance = ctCoreApi ?: return
+//        val context = testActivity.applicationContext ?: return
+//
+//        CTGeofenceAPI.getInstance(context).apply {
+//            init(
+//                CTGeofenceSettings.Builder()
+//                    .enableBackgroundLocationUpdates(true)
+//                    .setLogLevel(com.clevertap.android.geofence.Logger.DEBUG)
+//                    .setLocationAccuracy(CTGeofenceSettings.ACCURACY_HIGH)
+//                    .setLocationFetchMode(CTGeofenceSettings.FETCH_CURRENT_LOCATION_PERIODIC)
+//                    .setGeofenceMonitoringCount(99)
+//                    .setInterval(3600000) // 1 hour
+//                    .setFastestInterval(1800000) // 30 minutes
+//                    .setSmallestDisplacement(1000f) // 1 km
+//                    .setGeofenceNotificationResponsiveness(300000) // 5 minute
+//                    .build(), cleverTapInstance
+//            )
+//            setOnGeofenceApiInitializedListener {
+//                Toast.makeText(context, "Geofence API initialized", Toast.LENGTH_SHORT).show()
+//            }
+//            setCtGeofenceEventsListener(object : CTGeofenceEventsListener {
+//                override fun onGeofenceEnteredEvent(jsonObject: JSONObject) {
+//                    Toast.makeText(context, "Geofence Entered", Toast.LENGTH_SHORT).show()
+//                }
+//
+//                override fun onGeofenceExitedEvent(jsonObject: JSONObject) {
+//                    Toast.makeText(context, "Geofence Exited", Toast.LENGTH_SHORT).show()
+//                }
+//            })
+//            setCtLocationUpdatesListener { Toast.makeText(context, "Location updated", Toast.LENGTH_SHORT).show() }
+//            if (triggerUpdates) triggerLocation()
+//            if (deactivate) deactivate()
+//        }
+//
+//
     }
 }
