@@ -37,7 +37,7 @@ class CleverTapSegmentApplication : Application() {
             .logLevel(Analytics.LogLevel.VERBOSE)
             .use(CleverTapIntegration.FACTORY)
             .build()
-        analytics.onIntegrationReady(DESTIN_CLEVERTAP_KEY, ::initCleverTap)
+        analytics.onIntegrationReady(DESTIN_CLEVERTAP_KEY, ::initCleverTap)  ///<----
         Analytics.setSingletonInstance(analytics)
     }
 

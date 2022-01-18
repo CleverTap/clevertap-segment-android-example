@@ -29,7 +29,6 @@ fun AppCompatActivity.getSegmentAnalyticsApi(): Analytics? {
 
 
 
-val Number.dpValue get() = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), Resources.getSystem().displayMetrics).toInt()
 
 fun Context?.showNotif(
     title: String = "title",

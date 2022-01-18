@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.screenButton).setOnClickListener { segmentIO_Screen() }
         handleIntent(intent)
 
-        ctTest.setupTestActivity(this,llID = R.id.llCT)
+        ctTest.setupTestActivity(this,llID = R.id.llCT, getCtCoreApi())
     }
 
 
