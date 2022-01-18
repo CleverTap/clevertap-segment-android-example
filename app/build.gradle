@@ -38,10 +38,13 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.aar'], dir: 'libs')
-    implementation 'junit:junit:4.12'
-    implementation 'com.clevertap.android:clevertap-segment-android:1.3.0'
-    implementation 'com.clevertap.android:clevertap-android-sdk:4.3.1'
+
+    //// clevertap and segment integration
+    implementation 'com.clevertap.android:clevertap-android-sdk:4.4.0'
     implementation 'com.segment.analytics.android:analytics:4.10.0'
+    implementation 'com.clevertap.android:clevertap-segment-android:1.4.0'
+
+    implementation 'junit:junit:4.12'
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'androidx.core:core:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
