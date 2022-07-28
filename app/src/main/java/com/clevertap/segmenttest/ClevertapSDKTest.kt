@@ -2,9 +2,6 @@
 
 package com.clevertap.segmenttest
 
-//import com.clevertap.android.geofence.CTGeofenceAPI
-//import com.clevertap.android.geofence.CTGeofenceSettings
-//import com.clevertap.android.geofence.interfaces.CTGeofenceEventsListener
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
@@ -26,86 +23,6 @@ import com.clevertap.android.sdk.CleverTapAPI
 import java.util.*
 
 class ClevertapSDKTest() {
-//    fun initApplicationBeforeOnCreate(application: Application) {
-//        log("ctInitLogging: ")
-//        if (/*BuildConfig.DEBUG*/ true) CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE)
-//        else CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.OFF)
-//
-//        //TemplateRenderer.debugLevel = 3;
-//        //CleverTapAPI.setNotificationHandler(PushTemplateNotificationHandler() as NotificationHandler);
-//        //application.registerActivityLifecycleCallbacks(
-//        //    object : Application.ActivityLifecycleCallbacks {
-//        //        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {}
-//        //        override fun onActivityStarted(activity: Activity) {}
-//        //        override fun onActivityResumed(activity: Activity) {}
-//        //        override fun onActivityPaused(activity: Activity) {}
-//        //        override fun onActivityStopped(activity: Activity) {}
-//        //        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
-//        //        override fun onActivityDestroyed(activity: Activity) {}
-//        //    }
-//        //)
-//
-//        log("ctAttachLifeCycleListener: ")
-//        ActivityLifecycleCallback.register(application)
-//
-//    }
-//
-//    fun initApplicationAfterOnCreate(application: Application) {
-//        log("ctInitGlobalInstance: ")
-//
-//        appCtx = application.applicationContext
-//
-//
-//        //ProviderInstaller.installIfNeededAsync(this, object : ProviderInstaller.ProviderInstallListener {
-//        //    override fun onProviderInstalled() {}
-//        //    override fun onProviderInstallFailed(i: Int, intent: Intent?) { Log.i("ProviderInstaller", "Provider install failed ($i) : SSL Problems may occurs") }
-//        //})
-//
-//        //val defaultInstance = CleverTapAPI.getDefaultInstance(this)
-//        //defaultInstance?.syncListener = object : SyncListener {
-//        //    override fun profileDataUpdated(updates: JSONObject?) {no op }
-//        //    override fun profileDidInitialize(CleverTapID: String?) { println("CleverTap DeviceID from Application class= $CleverTapID") }
-//        //}
-//
-//
-//        ctCoreApi = CleverTapAPI.getDefaultInstance(appCtx)
-//
-//        log("ctInBoxInitialise: ")
-//        ctCoreApi?.initializeInbox()
-//
-//
-//        log("called ctNotifCreateChannels: ")
-//        val importance = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) NotificationManager.IMPORTANCE_MAX else 5
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            CleverTapAPI.createNotificationChannelGroup(appCtx, "id_my_word_group", "MyWord")
-//            CleverTapAPI.createNotificationChannel(appCtx, "id_got", "GOT", "GOT channel notifications description", importance, true, null)
-//
-//            CleverTapAPI.deleteNotificationChannel(appCtx, "testChannel")
-//            CleverTapAPI.deleteNotificationChannelGroup(appCtx, "testGroup");
-//        }
-//        CleverTapAPI.createNotificationChannel(appCtx, "c_general_id", "c_general_name", "", importance, true)
-//        CleverTapAPI.createNotificationChannel(appCtx, "GSTTesting", "GSTTesting", "", importance, true)
-//        CleverTapAPI.createNotificationChannel(appCtx, "BRTesting", "Core", "Core notifications", NotificationManager.IMPORTANCE_MAX, true)
-//        CleverTapAPI.createNotificationChannel(appCtx, "PTTesting", "Push templates", "All push templates", NotificationManager.IMPORTANCE_MAX, true)
-//
-//
-//        log("called ctNotifAttachListeners: ")
-//        ctCoreApi?.ctPushNotificationListener = CTPushNotificationListener { receivedNotifInfo ->
-//            log("received notification: $receivedNotifInfo")
-//
-//            //hack  controlling in app notifications from status bar notifications
-//            if (receivedNotifInfo["discard"] == 1) ctCoreApi?.discardInAppNotifications()
-//            if (receivedNotifInfo["resume"] == 1) ctCoreApi?.resumeInAppNotifications()
-//            if (receivedNotifInfo["suspend"] == 1) ctCoreApi?.suspendInAppNotifications()
-//        }
-//
-//        log("called ctNotifPushAmpInitListener: ")
-//        ctCoreApi?.ctPushAmpListener = CTPushAmpListener { extras: Bundle? ->
-//            CleverTapAPI.processPushNotification(appCtx, extras)
-//            appCtx.showNotif(title = "push amplification notification", channelId = "forced_notif_channel")
-//        }
-//    }
-
     fun setupTestActivity(activity: AppCompatActivity, llID: Int, customCleverTapInstance: CleverTapAPI? = null) {
         testActivity = activity
         appCtx = activity.applicationContext
@@ -485,8 +402,8 @@ class ClevertapSDKTest() {
             val textView = TextView(appCtx)
             textView.background = ContextCompat.getDrawable(appCtx, android.R.drawable.editbox_dropdown_light_frame)
             textView.setPadding(8)
-            textView.maxWidth = 120.dpValue
-            textView.minWidth = 120.dpValue
+            textView.maxWidth = 120.dpValue(appCtx)
+            textView.minWidth = 120.dpValue(appCtx)
             textView.gravity = Gravity.CENTER_HORIZONTAL
             textView.setOnClickListener {
                  log(context = appCtx,key = "clicked:${content.key}")
@@ -579,4 +496,8 @@ class ClevertapSDKTest() {
 //
 //
     }
+}
+fun Int.dpValue(applicationContext:Context): Int {
+    this?:return 0
+    return (this * applicationContext.resources.displayMetrics.density).toInt()
 }
