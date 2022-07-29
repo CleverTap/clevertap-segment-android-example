@@ -18,7 +18,7 @@ import org.json.JSONObject;
 public class CleverTapSegmentApplication extends Application implements SyncListener {
 
     private static final String TAG = String.format("%s.%s", "CLEVERTAP", CleverTapSegmentApplication.class.getName());
-    private static final String WRITE_KEY = "VVsCywzFPA8wbGLyNFxwYnixchTUknJy";
+    private static final String WRITE_KEY = "YOUR_KEY";
     private static final String CLEVERTAP_KEY = "CleverTap";
     public static boolean sCleverTapSegmentEnabled = false;
 
