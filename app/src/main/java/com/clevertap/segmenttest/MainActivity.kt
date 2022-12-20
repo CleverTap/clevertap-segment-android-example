@@ -103,6 +103,8 @@ class MainActivity : AppCompatActivity() {
         log("segmentIO_Alias_or_Identify() called with: isMergeProfile = $isMergeProfile",context = this)
 
         val (id,traits) = sgGetIdAndTraits()
+        log("id",id)
+        log("traits",traits)
         if (isMergeProfile) getSegmentAnalyticsApi()?.alias(id) //similar to onUserLogin
         else getSegmentAnalyticsApi()?.identify(id, traits, null) // similar to pushProfile
     }
