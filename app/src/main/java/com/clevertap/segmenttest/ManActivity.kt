@@ -1,22 +1,24 @@
 package com.clevertap.segmenttest
 
-import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
+import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
+import android.text.TextUtils
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import net.andreinc.mockneat.MockNeat
-import android.text.TextUtils
-import android.content.Intent
-import android.os.SystemClock
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.clevertap.android.sdk.CTInboxStyleConfig
-import com.segment.analytics.Traits
+import com.segment.analytics.Analytics
 import com.segment.analytics.Properties
+import com.segment.analytics.Properties.Product
+import com.segment.analytics.Traits
+import net.andreinc.mockneat.MockNeat
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class ManActivity : AppCompatActivity() {
 
     //private val clevertap by lazy { getCtCoreApi() }// cannot do so because its initially null and segment sdk takes time to asynchronously update application's global instance
     private var mLastInboxClickTime: Long = 0
@@ -63,6 +65,8 @@ class MainActivity : AppCompatActivity() {
             .putValue("value", "testValue")
             .putValue("testDate", Date(System.currentTimeMillis()))
 
+        getSegmentAnalyticsApi()?.track("testEvent", properties1)
+
         val properties2 = Properties()
             .putValue("orderId", "123456")
             .putValue("revenue", 100)
@@ -71,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 Properties.Product("id2", "sku2", 200.0)
             )
 
-        getSegmentAnalyticsApi()?.track("testEvent", properties1)
+
         getSegmentAnalyticsApi()?.track("Order Completed", properties2)
     }
 
@@ -149,5 +153,16 @@ class MainActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         handleIntent(intent)
+    }
+
+    fun raiseChargedEvent(analytics: Analytics) {
+        val properties = Properties()
+        properties.putValue("orderId", "123456")
+        properties.putValue("revenue", 100)
+        properties.putProducts(
+            Product("id1", "sku1", 100.0),
+            Product("id2", "sku2", 200.0)
+        )
+        analytics.track("Order Completed", properties)
     }
 }

@@ -15,7 +15,7 @@ import org.json.JSONObject
 class CleverTapSegmentApplication : Application() {
     companion object {
         private const val TAG = "CT_SG_SAMPLE_APP>>"
-        private const val SOURCE_ANDROID_KEY = "VVsCywzFPA8wbGLyNFxwYnixchTUknJy"
+        const val SOURCE_ANDROID_KEY = "VVsCywzFPA8wbGLyNFxwYnixchTUknJy"
         private const val DESTIN_CLEVERTAP_KEY = "CleverTap"
     }
     var ctCoreApi: CleverTapAPI? = null
