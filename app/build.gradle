@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.clevertap.segmenttest"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 31
         versionCode 120
         versionName "1.2.0"
