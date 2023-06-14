@@ -54,6 +54,13 @@
             android:name="CLEVERTAP_NOTIFICATION_ICON"
             android:value="ic_stat_red_star"/>
 
+        <meta-data
+            android:name="CLEVERTAP_ACCOUNT_ID"
+            android:value="CLEVERTAP_ACCOUNT_ID"/>
+        <meta-data
+            android:name="CLEVERTAP_TOKEN"
+            android:value="CLEVERTAP_TOKEN"/>
+
     </application>
 
 </manifest>

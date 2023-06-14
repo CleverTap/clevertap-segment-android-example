@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
+
+import com.clevertap.android.sdk.ActivityLifecycleCallback;
 import com.clevertap.android.sdk.CleverTapAPI;
 import com.clevertap.android.sdk.SyncListener;
 import com.segment.analytics.Analytics;
@@ -27,9 +29,10 @@ public class CleverTapSegmentApplication extends Application implements SyncList
     private static Handler handler = null;
 
     @Override public void onCreate() {
+        ActivityLifecycleCallback.register(this);
         super.onCreate();
 
-        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.DEBUG);
+        CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
 
         Analytics analytics = new Analytics.Builder(getApplicationContext(), WRITE_KEY)
                 .logLevel(Analytics.LogLevel.VERBOSE)
