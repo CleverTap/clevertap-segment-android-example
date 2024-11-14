@@ -29,7 +29,6 @@ public class CleverTapSegmentApplication extends Application implements SyncList
     private static Handler handler = null;
 
     @Override public void onCreate() {
-        ActivityLifecycleCallback.register(this);
         super.onCreate();
 
         CleverTapAPI.setDebugLevel(CleverTapAPI.LogLevel.VERBOSE);
@@ -42,6 +41,7 @@ public class CleverTapSegmentApplication extends Application implements SyncList
         analytics.onIntegrationReady(CLEVERTAP_KEY, new Analytics.Callback<CleverTapAPI>() {
             @Override
             public void onReady(CleverTapAPI instance) {
+                ActivityLifecycleCallback.register(CleverTapSegmentApplication.this);
                 Log.i(TAG, "analytics.onIntegrationReady() called");
                 CleverTapIntegrationReady(instance);
             }
